@@ -1,5 +1,10 @@
-from branch_c:
-in brach C
+from branch_bc:
+  from branch_c:
+  in brach C
 
-from branch_c:
-in brabch B
+  from branch_c:
+  in brabch B
+
+from branch_a:
+  in branch a
+
