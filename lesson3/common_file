@@ -1,2 +1,6 @@
+from branch_c:
 test
 CCCC
+
+from branch_b:
+in brach b
