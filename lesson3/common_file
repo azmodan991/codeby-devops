@@ -1,0 +1,11 @@
+from branch_bc:
+  from branch_c:
+  test
+  CCCC
+
+  from branch_b:
+  in brach b
+
+from brach_a:
+  AAA
+
