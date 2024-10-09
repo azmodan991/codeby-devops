@@ -1,0 +1,358 @@
+Script started on 2024-10-07 05:18:41+03:00 [TERM="xterm-256color" TTY="/dev/pts/3" COLUMNS="120" LINES="30"]
+]0;daniil@fedora-devops:~/DevOps/lesson4/codeby-devops/lesson4[?2004h[32mdaniil@fedora-devops[0m:[32m~/DevOps/lesson4/codeby-devops/lesson4[0m$[0m sudo systemcrl[K[Ktl status nginx.service 
+[?2004l[sudo] password for daniil: 
+[?1h=○ nginx.service - The nginx HTTP and reverse proxy server[m
+     Loaded: loaded (]8;;file://fedora-devops/usr/lib/systemd/system/nginx.service/usr/lib/systemd/system/nginx.service]8;;; [0;1;38;5;185mdisabled[0m; preset: [0;1;38;5;185mdisabled[0m)[m]8;;\
+    Drop-In: /usr/lib/systemd/system/service.d[m
+             └─]8;;file://fedora-devops/usr/lib/systemd/system/service.d/10-timeout-abort.conf10-timeout-abort.conf]8;;[m]8;;\
+     Active: inactive (dead)[m
+[K[?1l>]0;daniil@fedora-devops:~/DevOps/lesson4/codeby-devops/lesson4[?2004h[32mdaniil@fedora-devops[0m:[32m~/DevOps/lesson4/codeby-devops/lesson4[0m$[0m sudo systemctl status nginx.service [1P[1P[1P[1P[1P[1P[1@d[1@i[1@s[1@a[1@b[1@l[1@e
+[?2004l]0;daniil@fedora-devops:~/DevOps/lesson4/codeby-devops/lesson4[?2004h[32mdaniil@fedora-devops[0m:[32m~/DevOps/lesson4/codeby-devops/lesson4[0m$[0m sudo systemctl disable nginx.service [C[C[C[C[C[C[C[C[1P [1P [1P [1P [1P [1P [1P [1P [1P [1P [1P [1P [1P [K[1P [1P [1P [1P [1P [1P [1P [K[1P [1P [1P [1P [1P [1P [1P [1P [1P [K[1P [1P [1P [1P c u r l [C [K[1P [1P [1P [1P [7msudo rm /lib/systemd/system/nginx.service[27m sudo rm /lib/systemd/system/nginx.service[C
+[?2004l]0;daniil@fedora-devops:~/DevOps/lesson4/codeby-devops/lesson4[?2004h[32mdaniil@fedora-devops[0m:[32m~/DevOps/lesson4/codeby-devops/lesson4[0m$[0m sudo nano /etc/systemd/system/mu_[K-[K[Ky-nginx/[K.service
+[?2004l[?2004h[?1049h[22;0;0t[1;30r(B[m[4l[?7h[39;49m[?1h=[?1h=[?25l[39;49m(B[m[H[2J[28;55H(B[0;7m[ New File ](B[m[H(B[0;7m  GNU nano 7.2                              /etc/systemd/system/my-nginx.service                                        [1;119H(B[m[29d(B[0;7m^G(B[m Help[29;16H(B[0;7m^O(B[m Write Out   (B[0;7m^W(B[m Where Is    (B[0;7m^K(B[m Cut[29;61H(B[0;7m^T(B[m Execute     (B[0;7m^C(B[m Location    (B[0;7mM-U(B[m Undo	 (B[0;7mM-A(B[m Set Mark[30d(B[0;7m^X(B[m Exit[30;16H(B[0;7m^R(B[m Read File   (B[0;7m^\(B[m Replace     (B[0;7m^U(B[m Paste[61G(B[0;7m^J(B[m Justify     (B[0;7m^/(B[m Go To Line  (B[0;7mM-E(B[m Redo	 (B[0;7mM-6(B[m Copy[2d[?12l[?25h[?25l[28d[K[1;111H(B[0;7mModified(B[m[2d(B[0;1m[32m[Unit][3d[39m(B[mDescription=Custom Nginx - High-Performance Web Server[4dAfter=network.target[6d(B[0;1m[32m[Service][7d[39m(B[mExecStart=/usr/sbin/nginx -g 'daemon off;'[8dExecReload=/bin/kill -s HUP $MAINPID[9dExecStop=/bin/kill -s QUIT $MAINPID[10dPIDFile=/run/nginx.pid[11dRestart=always[13d(B[0;1m[32m[Install][14d[39m(B[mWantedBy=multi-user.target[15d[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[C[?25l[?12l[?25h[C[?25l[?12l[?25h[C[?25l[?12l[?25h[C[?25l[?12l[?25h[C[?25l[?12l[?25h[C[?25l[?12l[?25h[3d[?25l[?12l[?25hD[?25l[?12l[?25he[?25l[?12l[?25hs[?25l[?12l[?25hc[?25l[?12l[?25hr[?25l[?12l[?25hi[?25l[?12l[?25hp[?25l[?12l[?25h	[?25l[?12l[?25hi[?25l[?12l[?25ho[?25l[?12l[?25hn[?25l[?12l[?25h=[?25l[?12l[?25hC[?25l[?12l[?25hu[?25l[?12l[?25hs[?25l[?12l[?25h	[?25l[?12l[?25ho[?25l[?12l[?25hm[?25l[?12l[?25h [?25l[?12l[?25hN[?25l[?12l[?25hg[?25l[?12l[?25hi[?25l[?12l[?25hn[?25l[?12l[?25h	[?25l[?12l[?25h [?25l[?12l[?25h-[?25l[?12l[?25h [?25l[?12l[?25hH[?25l[?12l[?25hi[?25l[?12l[?25hg[?25l[?12l[?25hh[?25l[?12l[?25h	[?25l[?12l[?25hP[?25l[?12l[?25he[?25l[?12l[?25hr[?25l[?12l[?25hf[?25l[?12l[?25ho[?25l[?12l[?25hr[?25l[?12l[?25hm[?25l[?12l[?25h	[?25l[?12l[?25hn[?25l[?12l[?25hc[?25l[?12l[?25he[?25l[?12l[?25h [?25l[?12l[?25hW[?25l[?12l[?25he[?25l[?12l[?25hb[?25l[?12l[?25h	[?25l[?12l[?25hS[?25l[?12l[?25he[?25l[?12l[?25hr[?25l[?12l[?25hv[?25l[?12l[?25he[?25l[?12l[?25hr[?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h[Z [Z[?25l[?12l[?25h[?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h[?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h[Z [Z[?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h[Z [Z[?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h[?25l[?12l[?25h [?25l[?12l[?25h[Z[?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h[?25l[?12l[?25h [?25l[?12l[?25h[Z [Z[?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25hM[?25l[?12l[?25hY[?25l[?12l[?25h [?25l[?12l[?25hy[?25l[?12l[?25hN[?25l[?12l[?25hg[?25l[?12l[?25hi[?25l[?12l[?25hn[?25l[?12l[?25hx[?25l[?12l[?25hC[?25l[?12l[?25h [?25l[?12l[?25hS[?25l[?12l[?25he[?25l[?12l[?25hr[?25l[?12l[?25hv[?25l[?12l[?25hi[?25l[?12l[?25hc[?25l[?12l[?25he[?25l[29;16H[15X[29;31H(B[0;7mM-D(B[m DOS Format       [29;61H(B[0;7mM-A(B[m Append[16X[29;93H(B[0;7mB(B[m Backup File[K[30;2H(B[0;7mC(B[m Cancel[16G[15X[30;31H(B[0;7mM-M(B[m Mac Format         [61G(B[0;7mM-P(B[m Prepend[19X[30;91H(B[0;7m^T(B[m Browse[K[28d(B[0;7mFile Name to Write: /etc/systemd/system/my-nginx.service                                                                [28;57H(B[m[?12l[?25h[?25l[1K (B[0;7m[ Writing... ](B[m[K[1;111H(B[0;7m        (B[m[28;52H(B[0;7m[ Wrote 13 lines ](B[m[29;16H(B[0;7m^O(B[m Write Out   (B[0;7m^W(B[m Where Is    (B[0;7m^K(B[m Cut[29;61H(B[0;7m^T(B[m Execute     (B[0;7m^C(B[m Location[93G(B[0;7mU(B[m Undo       (B[0;7mM-A(B[m Set Mark[30;2H(B[0;7mX(B[m Exit  [16G(B[0;7m^R(B[m Read File   (B[0;7m^\(B[m Replace     (B[0;7m^U(B[m Paste[61G(B[0;7m^J(B[m Justify     (B[0;7m^/(B[m Go To Line  (B[0;7mM-E(B[m Redo 	 (B[0;7mM-6(B[m Copy[?12l[?25h[3;27H[?25l[28d[J[30d[?12l[?25h[30;1H[?1049l[23;0;0t[?1l>[?2004l]0;daniil@fedora-devops:~/DevOps/lesson4/codeby-devops/lesson4[?2004h[32mdaniil@fedora-devops[0m:[32m~/DevOps/lesson4/codeby-devops/lesson4[0m$[0m systemctl reload[C[1@s[1@u[1@d[1@o[1@i[1P[1@ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Kd[K[K[K[K[K[Kdaemon-reload 
+[?2004l]0;daniil@fedora-devops:~/DevOps/lesson4/codeby-devops/lesson4[?2004h[32mdaniil@fedora-devops[0m:[32m~/DevOps/lesson4/codeby-devops/lesson4[0m$[0m [7msudo systemctl enable custom-nginx.service[27msudo systemctl enable custom-nginx.service[1P-nginx.service[1P-nginx.service[1P-nginx.service[1P-nginx.service[1P-nginx.service[1P-nginx.servicem-nginx.servicey-nginx.service
+[?2004lCreated symlink /etc/systemd/system/multi-user.target.wants/my-nginx.service → /etc/systemd/system/my-nginx.service.
+]0;daniil@fedora-devops:~/DevOps/lesson4/codeby-devops/lesson4[?2004h[32mdaniil@fedora-devops[0m:[32m~/DevOps/lesson4/codeby-devops/lesson4[0m$[0m sudo systemctl enable my-nginx.service[1P my-nginx.service[1P my-nginx.service[1P my-nginx.service[1P my-nginx.service[1P my-nginx.service[1P my-nginx.services my-nginx.servicet my-nginx.servicea my-nginx.servicer my-nginx.servicet my-nginx.service
+[?2004l]0;daniil@fedora-devops:~/DevOps/lesson4/codeby-devops/lesson4[?2004h[32mdaniil@fedora-devops[0m:[32m~/DevOps/lesson4/codeby-devops/lesson4[0m$[0m sudo systemctl start my-nginx.service[1P my-nginx.service[1P my-nginx.service[1P my-nginx.servicea my-nginx.servicer my-nginx.serviceu my-nginx.services my-nginx.service
+[?2004l[0;1;31mUnknown command verb 'starus', did you mean 'status'?[0m
+]0;daniil@fedora-devops:~/DevOps/lesson4/codeby-devops/lesson4[?2004h[32mdaniil@fedora-devops[0m:[32m~/DevOps/lesson4/codeby-devops/lesson4[0m$[0m sudo systemctl starus my-nginx.service[C[1P[1@t
+[?2004l[?1h=[0;1;32m●[0m my-nginx.service - MyNginxService[m
+     Loaded: loaded (]8;;file://fedora-devops/etc/systemd/system/my-nginx.service/etc/systemd/system/my-nginx.service]8;;; [0;1;32menabled[0m; preset: [0;1;38;5;185mdisabled[0m)[m]8;;\
+    Drop-In: /usr/lib/systemd/system/service.d[m
+             └─]8;;file://fedora-devops/usr/lib/systemd/system/service.d/10-timeout-abort.conf10-timeout-abort.conf]8;;[m]8;;\
+     Active: [0;1;32mactive (running)[0m since Mon 2024-10-07 05:24:27 MSK; 8s ago[m
+   Main PID: 6835 (nginx)[m
+      Tasks: 5 (limit: 7073)[m
+     Memory: 5.0M (peak: 5.0M)[m
+        CPU: 26ms[m
+     CGroup: /system.slice/my-nginx.service[m
+             ├─[0;38;5;245m6835 "nginx: master process /usr/sbin/nginx -g daemon off;"[0m[m
+             ├─[0;38;5;245m6836 "nginx: worker process"[0m[m
+             ├─[0;38;5;245m6837 "nginx: worker process"[0m[m
+             ├─[0;38;5;245m6838 "nginx: worker process"[0m[m
+             └─[0;38;5;245m6839 "nginx: worker process"[0m[m
+[m
+Oct 07 05:24:27 fedora-devops systemd[1]: Started my-nginx.service - MyNginxService.[m
+[K[?1l>]0;daniil@fedora-devops:~/DevOps/lesson4/codeby-devops/lesson4[?2004h[32mdaniil@fedora-devops[0m:[32m~/DevOps/lesson4/codeby-devops/lesson4[0m$[0m [7mcurl http://localhost/[27mcurl http://localhost/
+[?2004l<!doctype html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <title>Test Page for the HTTP Server on Fedora</title>
+    <style type="text/css">
+      /*<![CDATA[*/
+      
+      html {
+        height: 100%;
+        width: 100%;
+      }  
+        body {
+  background: rgb(60,149,180);
+  background: -moz-linear-gradient(180deg, rgba(60,110,180,1) 30%, rgba(60,149,180,1) 90%)  ;
+  background: -webkit-linear-gradient(180deg, rgba(60,110,180,1) 30%, rgba(60,149,180,1) 90%) ;
+  background: linear-gradient(180deg, rgba(60,110,180,1) 30%, rgba(60,149,180,1) 90%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#3c6eb4",endColorstr="#3c95b4",GradientType=1); 
+        color: white;
+        font-size: 0.9em;
+        font-weight: 400;
+        font-family: 'Montserrat', sans-serif;
+        margin: 0;
+        padding: 10em 6em 10em 6em;
+        box-sizing: border-box;      
+        
+      }
+
+   
+  h1 {
+    text-align: center;
+    margin: 0;
+    padding: 0.6em 2em 0.4em;
+    color: #fff;
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2em;
+  }
+  h1 strong {
+    font-weight: bolder;
+    font-family: 'Montserrat', sans-serif;
+  }
+  h2 {
+    font-size: 1.5em;
+    font-weight:bold;
+  }
+  
+  .title {
+    border: 1px solid black;
+    font-weight: bold;
+    position: relative;
+    float: right;
+    width: 150px;
+    text-align: center;
+    padding: 10px 0 10px 0;
+    margin-top: 0;
+  }
+  
+  .description {
+    padding: 45px 10px 5px 10px;
+    clear: right;
+    padding: 15px;
+  }
+  
+  .section {
+    padding-left: 3%;
+   margin-bottom: 10px;
+  }
+  
+  img {
+  
+    padding: 2px;
+    margin: 2px;
+  }
+  a:hover img {
+    padding: 2px;
+    margin: 2px;
+  }
+
+  :link {
+    color: rgb(199, 252, 77);
+    text-shadow:
+  }
+  :visited {
+    color: rgb(122, 206, 255);
+  }
+  a:hover {
+    color: rgb(16, 44, 122);
+  }
+  .row {
+    width: 100%;
+    padding: 0 10px 0 10px;
+  }
+  
+  footer {
+    padding-top: 6em;
+    margin-bottom: 6em;
+    text-align: center;
+    font-size: xx-small;
+    overflow:hidden;
+    clear: both;
+  }
+ 
+  .summary {
+    font-size: 140%;
+    text-align: center;
+  }
+
+  #fedora-poweredby img {
+    margin-left: -10px;
+  }
+
+  #logos img {
+    vertical-align: top;
+  }
+  
+  /* Desktop  View Options */
+ 
+  @media (min-width: 768px)  {
+  
+    body {
+      padding: 10em 20% !important;
+    }
+    
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6,
+    .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+      float: left;
+    }
+  
+    .col-md-1 {
+      width: 8.33%;
+    }
+    .col-md-2 {
+      width: 16.66%;
+    }
+    .col-md-3 {
+      width: 25%;
+    }
+    .col-md-4 {
+      width: 33%;
+    }
+    .col-md-5 {
+      width: 41.66%;
+    }
+    .col-md-6 {
+      border-left:3px ;
+      width: 50%;
+      
+
+    }
+    .col-md-7 {
+      width: 58.33%;
+    }
+    .col-md-8 {
+      width: 66.66%;
+    }
+    .col-md-9 {
+      width: 74.99%;
+    }
+    .col-md-10 {
+      width: 83.33%;
+    }
+    .col-md-11 {
+      width: 91.66%;
+    }
+    .col-md-12 {
+      width: 100%;
+    }
+  }
+  
+  /* Mobile View Options */
+  @media (max-width: 767px) {
+    .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6,
+    .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12 {
+      float: left;
+    }
+  
+    .col-sm-1 {
+      width: 8.33%;
+    }
+    .col-sm-2 {
+      width: 16.66%;
+    }
+    .col-sm-3 {
+      width: 25%;
+    }
+    .col-sm-4 {
+      width: 33%;
+    }
+    .col-sm-5 {
+      width: 41.66%;
+    }
+    .col-sm-6 {
+      width: 50%;
+    }
+    .col-sm-7 {
+      width: 58.33%;
+    }
+    .col-sm-8 {
+      width: 66.66%;
+    }
+    .col-sm-9 {
+      width: 74.99%;
+    }
+    .col-sm-10 {
+      width: 83.33%;
+    }
+    .col-sm-11 {
+      width: 91.66%;
+    }
+    .col-sm-12 {
+      width: 100%;
+    }
+    h1 {
+      padding: 0 !important;
+    }
+  }
+        
+  
+  </style>
+  </head>
+  <body>
+    <h1>Fedora Webserver <strong>Test Page</strong></h1>
+
+    <div class='row'>
+    
+      <div class='col-sm-12 col-md-6 col-md-6 '></div>
+          <p class="summary">If you can
+            read this page, it means that the web server installed at
+            this site is working properly, but has not yet been
+            configured.</p>
+      </div>
+      
+      <div class='col-sm-12 col-md-6 col-md-6 col-md-offset-12'>
+     
+       
+        <div class='section'>
+          <h2>If you are a member of the general public:</h2>
+
+          <p>The website you just visited is either <strong>experiencing
+          problems</strong> or <strong>undergoing routine maintenance</strong>.</p>
+  
+          <p>To let the administrators of this website know that you are
+          seeing this page and not what you were expecting, an e-mail 
+          addressed to "webmaster" at the website's domain should reach 
+          an appropriate person. For example, if you saw this page while visiting
+          <strong>www.example.com</strong>, you could send e-mail to 
+          "<strong>webmaster@example.com</strong>".</p>
+    
+          <p>Fedora is a distribution of Linux, a popular computer
+          operating system. It is commonly used by hosting companies
+          because it is free, and includes free web server software.
+          This "test page" is shown instead of the expected
+          website if they do not set up their web server correctly.</p>
+          <p>Accordingly, please keep these facts in mind:</p>
+
+        <ul>
+          <li>Neither the Fedora Project or Red Hat has any
+          affiliation with any website or content hosted from this
+          server (unless otherwise explicitly stated).</li>
+
+          <li>Neither the Fedora Project or Red Hat has "hacked"
+          this webserver: this test page is an included component
+          of the Fedora webserver software.</li>
+        </ul>
+        <p>For more information about Fedora, please visit the
+          <a href="https://getfedora.org/"><strong>Fedora Project 
+          website</strong></a>.
+        </p>
+        </div>
+      </div>
+      <div class='col-sm-12 col-md-6 col-md-6 col-md-offset-12'>
+        <div class='section'>
+         
+          <h2>If you are the website administrator:</h2>
+
+        <p>You may now add content to the webroot directory. Note
+        that until you do so, people visiting your website will see
+        this page, and not your content.</p>
+
+        <p><strong>For systems using 
+        <a href="https://docs.fedoraproject.org/en-US/quick-docs/getting-started-with-apache-http-server/index.html">Apache Webserver</strong></a>:
+        You may now add content to the directory <code>/var/www/html/</code>.
+        Note that until you do so, people visiting your website will see
+        this page, and not your content. To prevent this page from
+        ever being used, follow the instructions in the file
+        <code>/etc/httpd/conf.d/welcome.conf</code>.</p>
+
+        <p><strong>For systems using
+        <a href="https://fedoraproject.org/wiki/Nginx">Nginx</strong></a>:
+        You should now put your content in a location of your
+        choice and edit the <code>root</code> configuration directive
+        in the <strong>nginx</strong> configuration file
+        <code>/etc/nginx/nginx.conf</code>.</p>
+        
+        <p><strong>For systems using <a href="https://caddyserver.com">Caddy</strong></a>: 
+        You should now put your content in a location of your choice and 
+        edit the root configuration directive in the Caddy configuration 
+        file <code>/etc/caddy/Caddyfile</code>.
+        
+        <div id="logos">
+          <a href="https://getfedora.org/" id="fedora-poweredby"><img src= "icons/poweredby.png" alt="[ Powered by Fedora ]" /></a> <!-- Fedora -->
+          <img src="poweredby.png" /> <!-- webserver -->
+        </div>       
+      </div>
+      </div>
+      
+      <footer class="col-sm-12">
+      <a href="https://apache.org">Apache&trade;</a> is a registered trademark of <a href="https://apache.org">the Apache Software Foundation</a> in the United States and/or other countries.<br />
+      <a href="https://nginx.org">NGINX&trade;</a> is a registered trademark of <a href="https://">F5 Networks, Inc.</a>.
+      <a href="https://caddyserver.com">Caddy&trade;</a> is a registered trademark of Stack Holdings GmbH.
+      </footer>
+      
+  </body>
+</html>
+]0;daniil@fedora-devops:~/DevOps/lesson4/codeby-devops/lesson4[?2004h[32mdaniil@fedora-devops[0m:[32m~/DevOps/lesson4/codeby-devops/lesson4[0m$[0m exit
+[?2004lexit
+
+Script done on 2024-10-07 05:25:04+03:00 [COMMAND_EXIT_CODE="0"]

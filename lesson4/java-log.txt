@@ -1,0 +1,38 @@
+Script started on 2024-10-07 04:59:34+03:00 [TERM="xterm-256color" TTY="/dev/pts/3" COLUMNS="120" LINES="30"]
+]0;daniil@fedora-devops:~/DevOps/lesson4/codeby-devops/lesson4[?2004h[32mdaniil@fedora-devops[0m:[32m~/DevOps/lesson4/codeby-devops/lesson4[0m$[0m script ps-log.txtls[Kдыgit branch ls[Kcd codeby-devops/ls[Kcd lesson4[KDevOps/shutdown nowudo systemctl status sshd[14Phutdown now[2Pcd DevOps/[1Plesson4ls[Kcd codeby-devops/ls[Kcd lesson4[KDevOps/shutdown nowudo systemctl status sshd[1@restart[C[C[C[C[Cnano /etc/ssh/sshd_config[5Psystemctl start sshd[1@enable[C[C[C[C[Cdnf install openssh-server[11Pystemctl status sship a[Kcat /etc/motd[K[K[K[K[K[K[K[K[K[K[K[K[Kjava --verso[Kion
+[?2004ljava 23 2024-09-17
+Java(TM) SE Runtime Environment (build 23+37-2369)
+Java HotSpot(TM) 64-Bit Server VM (build 23+37-2369, mixed mode, sharing)
+]0;daniil@fedora-devops:~/DevOps/lesson4/codeby-devops/lesson4[?2004h[32mdaniil@fedora-devops[0m:[32m~/DevOps/lesson4/codeby-devops/lesson4[0m$[0m [7msudo update-alternatives --config java[27msudo update-alternatives --config java
+[?2004l[sudo] password for daniil: 
+
+There are 2 programs which provide 'java'.
+
+  Selection    Command
+-----------------------------------------------
+   1           /usr/lib/jvm/java-21-openjdk-21.0.4.0.7-2.fc40.x86_64/bin/java
+*+ 2           /usr/lib/jvm/jdk-23/bin/java
+
+Enter to keep the current selection[+], or type selection number: 1
+]0;daniil@fedora-devops:~/DevOps/lesson4/codeby-devops/lesson4[?2004h[32mdaniil@fedora-devops[0m:[32m~/DevOps/lesson4/codeby-devops/lesson4[0m$[0m jaav[K[Kva --version
+[?2004lopenjdk 21.0.4 2024-07-16
+OpenJDK Runtime Environment (Red_Hat-21.0.4.0.7-2) (build 21.0.4+7)
+OpenJDK 64-Bit Server VM (Red_Hat-21.0.4.0.7-2) (build 21.0.4+7, mixed mode, sharing)
+]0;daniil@fedora-devops:~/DevOps/lesson4/codeby-devops/lesson4[?2004h[32mdaniil@fedora-devops[0m:[32m~/DevOps/lesson4/codeby-devops/lesson4[0m$[0m java --versionsudo update-alternatives --config java
+[?2004l
+There are 2 programs which provide 'java'.
+
+  Selection    Command
+-----------------------------------------------
+ + 1           /usr/lib/jvm/java-21-openjdk-21.0.4.0.7-2.fc40.x86_64/bin/java
+*  2           /usr/lib/jvm/jdk-23/bin/java
+
+Enter to keep the current selection[+], or type selection number: 1
+]0;daniil@fedora-devops:~/DevOps/lesson4/codeby-devops/lesson4[?2004h[32mdaniil@fedora-devops[0m:[32m~/DevOps/lesson4/codeby-devops/lesson4[0m$[0m sudo update-alternatives --config java[24Pjava --version
+[?2004lopenjdk 21.0.4 2024-07-16
+OpenJDK Runtime Environment (Red_Hat-21.0.4.0.7-2) (build 21.0.4+7)
+OpenJDK 64-Bit Server VM (Red_Hat-21.0.4.0.7-2) (build 21.0.4+7, mixed mode, sharing)
+]0;daniil@fedora-devops:~/DevOps/lesson4/codeby-devops/lesson4[?2004h[32mdaniil@fedora-devops[0m:[32m~/DevOps/lesson4/codeby-devops/lesson4[0m$[0m exit
+[?2004lexit
+
+Script done on 2024-10-07 05:00:51+03:00 [COMMAND_EXIT_CODE="0"]
