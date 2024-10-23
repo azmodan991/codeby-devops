@@ -1,0 +1,2 @@
+0 * * * * /opt/mysql_backup/backup.sh
+10 * * * * /opt/mysql_backup/rsync_backup.sh
