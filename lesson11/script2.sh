@@ -3,29 +3,33 @@
 project_dir=~/myfolder	# Путь рабочей директории
 BADDIR=65		# Код ошибки в случае отсутствия рабочей директории
 
-# 1.создать папку, если ее нет
+# Если нет рабочей директории, то выходит с кодом ошибки BADDIR
 if ! [ -d ${project_dir} ]; then
 	exit $BADDIR
 fi
 
-file_counter=$(ls ${project_dir} | wc -l)
+file_counter=$(ls ${project_dir} | wc -l) # Рассчитывает количество файлов в рабочей директории
+echo "В рабочей директории (${project_dir}) находится ${file_counter} файлов"
 
-for a in {1..${file_counter}}
-do
-	if [ ${a} -eq 1 ]; then
-		echo ""
-	fi
-# Исправляем права второго файла с 777 на 664
-#chmod 664 ~/myfolder/2.txt
-
-# Определяем пустые файлы и удаляем их
-#find ~/myfolder -type f -empty -delete
-
-# Удаляем все строки кроме первой в остальных файлах
+#Удаляем все строки кроме первой в остальных файлах
 #for file in ~/myfolder/*; do
 #    if [[ -f "$file" && "$file" != 2.txt ]]; then
 #        # Сохраняем первую строку файла и записываем обратно
 #        head -n 1 "$file" > "$file.tmp" && mv "$file.tmp" "$file"
 #    fi
-done
+#done
 
+for file in $project_dir/*; do						# Пройдемся по всем файлам в рабочей директории
+	if [ -f $file ]; then						# Проверка, что это файл
+		if [[ "$(basename $file)" == "2.txt" ]]; then		# Для начала обработаем второй файл, чтобы изменить права доступа
+			chmod 644 $file					# Меняем права на файл ($file возвращает полный путь до файла)
+		elif [[ ! -s $file ]]; then				# Обрабатываем все пустые файлы (-s возвращает True, если файл непустой, потому используем !)
+			echo "$file является пустым, потому удаляется"
+			rm $file					# Удаляем пустые файлы
+		else							# Во всех остальных файлах надо оставить только первую строчку
+			head -n 1 "$file" > "$file.tmp" && mv "file.tmp" "$file"
+		fi
+	fi
+
+done
+exit 0
