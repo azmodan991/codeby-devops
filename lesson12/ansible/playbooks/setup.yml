@@ -1,0 +1,22 @@
+---
+- name: Setup webservers
+  hosts: webservers
+  become: true
+  tasks:
+    - name: install utils
+      apt:
+        name:
+          - wget
+          - htop
+          - nginx
+        state: present
+
+    - name: start nginx
+      service:
+          name: nginx
+          state: started
+          enabled: true
+
+    - name: debug message
+      debug:
+          msg: "This host in {{ ansible_hostname }} environment"
