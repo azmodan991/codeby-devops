@@ -1,0 +1,29 @@
+---
+- name: Install MySQL
+  package:
+    name: "{{ mysql_package }}"
+    state: present
+
+- name: Start and enable MySQL
+  service:
+    name: "{{ mysql_service }}"
+    state: started
+    enabled: yes
+
+- name: Ensure MySQL root password is set
+  shell: |
+    mysqladmin -u root password '{{ mysql_root_password }}' || true
+  args:
+    creates: /root/.mysql_configured
+
+- name: Create database for WordPress
+  mysql_db:
+    name: "{{ wordpress_db_name }}"
+    state: present
+
+- name: Create WordPress user
+  mysql_user:
+    name: "{{ wordpress_db_user }}"
+    password: "{{ wordpress_db_password }}"
+    priv: "{{ wordpress_db_name }}.*:ALL"
+    state: present

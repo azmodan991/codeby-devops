@@ -1,0 +1,3 @@
+---
+mysql_package: "{{ 'mariadb-server' if ansible_os_family == 'RedHat' else 'mysql-server' }}"
+mysql_service: "{{ 'mariadb' if ansible_os_family == 'RedHat' else 'mysql' }}"

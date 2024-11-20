@@ -1,0 +1,6 @@
+---
+- name: Create Wordpress on Apache with mysql
+  hosts: wordpress-server
+  roles:
+    - mysql
+    - apache

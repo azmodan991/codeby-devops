@@ -1,0 +1,6 @@
+---
+apache_package: "{{ 'httpd' if ansible_os_family == 'RedHat' else 'apache2' }}"
+apache_service: "{{ 'httpd' if ansible_os_family == 'RedHat' else 'apache2' }}"
+php_packages:
+  - "{{ 'php' if ansible_os_family == 'RedHat' else 'php7.4' }}"
+  - "{{ 'php-mysqlnd' if ansible_os_family == 'RedHat' else 'php7.4-mysql' }}"
