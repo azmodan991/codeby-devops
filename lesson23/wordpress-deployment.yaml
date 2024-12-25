@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wordpress-deploy
+  namespace: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wordpress
+  template:
+    metadata:
+      labels:
+        app: wordpress
+    spec:
+      containers:
+      - name: wordpress
+        image: wordpress:latest
+
+        env:
+        - name: WORDPRESS_DB_HOST
+          value: mysql-service # должно совпадать с serviceName в StatefulSet и name в Service mysql
+        - name: WORDPRESS_DB_NAME
+          value: wordpress
+        - name: WORDPRESS_DB_USER
+          value: wp_user
+        - name: WORDPRESS_DB_PASSWORD
+          value: wp_passwd
+
+        resources:          # нужно добавить ресурсы, которые может использовать наш контейнер (ну или наверно все-таки под) как одиночный экземпляр деплоя
+          requests:         # минимальные ресурсы
+            cpu: 200m
+            memory: 256Mi
+          limits:           # максимальные ресурсы
+            cpu: 500m
+            memory: 512Mi
+
+        ports:
+        - containerPort: 80
+
+        volumeMounts:
+          - name: wordpress-data
+            mountPath: /var/www/html
+
+      volumes:
+        - name: wordpress-data
+          persistentVolumeClaim:
+            claimName: wordpress-pvc
