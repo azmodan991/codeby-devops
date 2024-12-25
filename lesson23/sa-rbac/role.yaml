@@ -1,0 +1,9 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: pod-reader-role  # имя роли, которое связывается через RoleBinding
+  namespace: dev
+rules:
+  - apiGroups: [""]       # работаем с объектами базовой группы API (например pods)
+    resources: ["pods"]   # ограничиваем доступом только к ресурсам типа pods
+    verbs: ["get", "list"]  # разрешенные операции (чтение и просмотр списка)
