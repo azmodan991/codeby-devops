@@ -1,0 +1,26 @@
+namespace: dev
+mysql:
+  replicas: 1
+  image: mysql:8.4.3
+  rootPassword: rootpasswd
+  database: wordpress
+  user: wp_user
+  password: wp_passwd
+  storage: 5Gi
+
+wordpress:
+  replicas: 1
+  image: wordpress:latest
+  resources:
+    requests:
+      cpu: 200m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+  ingress:
+    host: wordpress.local
+  hpa:
+    minReplicas: 1
+    maxReplicas: 5
+    averageUtilization: 50
