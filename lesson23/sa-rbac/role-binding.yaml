@@ -1,0 +1,13 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: pod-reader-binding     # уникальное имя связывания роли и аккаунта
+  namespace: dev
+subjects:
+- kind: ServiceAccount         # связываем  с ServiceAccount (используем его имя)
+  name: diagnostic-sa          # имя ServiceAccount (должно совпадать с именем sa d  service-account.yaml)
+  namespace: dev               # пространство имен из ServiceAccount
+roleRef:
+  kind: Role                           # тип объекта роли (Role или ClusterRole)
+  name: pod-reader-role                # имя Role (должно совпадать именем роли в role.yaml)
+  apiGroup: rbac.authorization.k8s.io
