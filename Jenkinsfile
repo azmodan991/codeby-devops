@@ -7,7 +7,7 @@ pipeline {
             parallel {
                 stage('Build and Test HelloWorld') {
                     when {
-                        changeset "**/HelloWorld/**"
+                        changeset "**/HelloWorld/**/*.java"
                     }
                     stages {
                         stage('Build') {
