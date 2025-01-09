@@ -4,6 +4,8 @@
 
 Вот история запросов. Вроде логин верный, но просто нет доступа до репозитория, даже чистый pull не отрабатывает
 Создал classic token c "repo, write:packages, read:pachages"
+Могу предположить, это приложение должно у меня в репозитории лежать, но тогда я не нашел, откуда брать reddit app.
+
 ┌───(daniil@centos10-devops)-[~/DevOps/codeby-devops/lesson29][lesson29*] 
 └─$ docker compose up -d                       
 [+] Running 7/7
