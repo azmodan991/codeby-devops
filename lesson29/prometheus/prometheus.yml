@@ -1,0 +1,24 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'cadvisor'
+    static_configs:
+      - targets: ['localhost:8080']
+
+  - job_name: 'blackbox'
+    metrics_path: /probe
+    params:
+      module: [http_2xx]
+    static_configs:
+      - targets:
+        - http://localhost:9292
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - target_label: instance
+        replacement: reddit-ui
+
+  - job_name: 'reddit'
+    static_configs:
+      - targets: ['ui:9292', 'post:5000', 'comment:8080']

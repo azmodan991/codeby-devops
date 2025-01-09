@@ -1,0 +1,67 @@
+# gap?
+services:
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    networks:
+      - gap_net
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    networks:
+      - gap_net
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor
+    container_name: cadvisor
+    privileged: true
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+    ports:
+      - "8080:8080"
+    networks:
+      - gap_net
+
+  blackbox-exporter:
+    image: prom/blackbox-exporter
+    container_name: blackbox-exporter
+    ports:
+      - "9115:9115"
+    networks:
+      - gap_net
+
+# Reddit
+  reddit-ui:
+    image: ghcr.io/codeby-devops/ui:monitoring
+    container_name: reddit-ui
+    ports:
+      - "9292:9292"
+    networks:
+      - gap_net
+
+  reddit-post:
+    image: ghcr.io/codeby-devops/post:monitoring
+    container_name: reddit-post
+    networks:
+      - gap_net
+
+  reddit-comment:
+    image: ghcr.io/codeby-devops/comment:monitoring
+    container_name: reddit-comment
+    networks:
+      - gap_net
+
+networks:
+  gap_net:
+    driver: bridge
