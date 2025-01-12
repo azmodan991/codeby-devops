@@ -1,0 +1,232 @@
+как говрится, либо лыжи не едут, либо я.. не выкачивается образы с ghcr, потому не могу выполнить задание до конца
+по сути остается только перейти в графану, после запуска композа и выставить в Data Source сам Prometheus c указанием http://localhost:9090
+
+
+Вот история запросов. Вроде логин верный, но просто нет доступа до репозитория, даже чистый pull не отрабатывает
+Создал classic token c "repo, write:packages, read:pachages"
+Могу предположить, это приложение должно у меня в репозитории лежать, но тогда я не нашел, откуда брать reddit app.
+
+┌───(daniil@centos10-devops)-[~/DevOps/codeby-devops/lesson29][lesson29*] 
+└─$ docker compose up -d                       
+[+] Running 7/7
+ ✘ blackbox-exporter Error context canceled                                                                                                             3.2s 
+ ✘ reddit-comment Error    denied                                                                                                                       3.2s 
+ ✘ cadvisor Error          context canceled                                                                                                             3.2s 
+ ✘ reddit-ui Error         context canceled                                                                                                             3.2s 
+ ✘ reddit-post Error       context canceled                                                                                                             3.2s 
+ ✘ grafana Error           context canceled                                                                                                             3.2s 
+ ✘ prometheus Error        context canceled                                                                                                             3.2s 
+Error response from daemon: denied
+┌───(daniil@centos10-devops)-[~/DevOps/codeby-devops/lesson29][lesson29*] 
+└─$ nano docker-compose.yml                   
+┌───(daniil@centos10-devops)-[~/DevOps/codeby-devops/lesson29][lesson29*] 
+└─$ cat docker-compose.yml                 
+# gap?
+services:
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    networks:
+      - gap_net
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    networks:
+      - gap_net
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor
+    container_name: cadvisor
+    privileged: true
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+    ports:
+      - "8080:8080"
+    networks:
+      - gap_net
+
+  blackbox-exporter:
+    image: prom/blackbox-exporter
+    container_name: blackbox-exporter
+    ports:
+      - "9115:9115"
+    networks:
+      - gap_net
+
+# Reddit
+  reddit-ui:
+    image: ghcr.io/codeby-devops/ui:monitoring
+    container_name: reddit-ui
+    ports:
+      - "9292:9292"
+    networks:
+      - gap_net
+
+  reddit-post:
+    image: ghcr.io/codeby-devops/post:monitoring
+    container_name: reddit-post
+    networks:
+      - gap_net
+
+  reddit-comment:
+    image: ghcr.io/codeby-devops/comment:monitoring
+    container_name: reddit-comment
+    networks:
+      - gap_net
+
+networks:
+  gap_net:
+    driver: bridge
+┌───(daniil@centos10-devops)-[~/DevOps/codeby-devops/lesson29][lesson29*] 
+└─$ sudo usermod -aG docker $USER
+[sudo] password for daniil: 
+┌───(daniil@centos10-devops)-[~/DevOps/codeby-devops/lesson29][lesson29*] 
+└─$ ping ghcr.io
+PING ghcr.io (140.82.121.33) 56(84) bytes of data.
+64 bytes from lb-140-82-121-33-fra.github.com (140.82.121.33): icmp_seq=1 ttl=128 time=160 ms
+64 bytes from lb-140-82-121-33-fra.github.com (140.82.121.33): icmp_seq=2 ttl=128 time=182 ms
+64 bytes from lb-140-82-121-33-fra.github.com (140.82.121.33): icmp_seq=3 ttl=128 time=158 ms
+^C
+--- ghcr.io ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2002ms
+rtt min/avg/max/mdev = 158.303/166.671/181.723/10.665 ms
+┌───(daniil@centos10-devops)-[~/DevOps/codeby-devops/lesson29][lesson29*] 
+└─$ curl -H "Authorization: Bearer $(cat ~/.docker/config.json | jq -r '.auths["ghcr.io"].auth' | base64 -d | cut -d: -f2)" https://ghcr.io/v2/rate_limit
+
+┌───(daniil@centos10-devops)-[~/DevOps/codeby-devops/lesson29][lesson29*] 
+└─$ docker compose config
+name: lesson29
+services:
+  blackbox-exporter:
+    container_name: blackbox-exporter
+    image: prom/blackbox-exporter
+    networks:
+      gap_net: null
+    ports:
+      - mode: ingress
+        target: 9115
+        published: "9115"
+        protocol: tcp
+  cadvisor:
+    container_name: cadvisor
+    image: gcr.io/cadvisor/cadvisor
+    networks:
+      gap_net: null
+    ports:
+      - mode: ingress
+        target: 8080
+        published: "8080"
+        protocol: tcp
+    privileged: true
+    volumes:
+      - type: bind
+        source: /
+        target: /rootfs
+        read_only: true
+        bind:
+          create_host_path: true
+      - type: bind
+        source: /var/run
+        target: /var/run
+        bind:
+          create_host_path: true
+  grafana:
+    container_name: grafana
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_SECURITY_ADMIN_USER: admin
+    image: grafana/grafana
+    networks:
+      gap_net: null
+    ports:
+      - mode: ingress
+        target: 3000
+        published: "3000"
+        protocol: tcp
+  prometheus:
+    container_name: prometheus
+    image: prom/prometheus
+    networks:
+      gap_net: null
+    ports:
+      - mode: ingress
+        target: 9090
+        published: "9090"
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: /home/daniil/DevOps/codeby-devops/lesson29/prometheus/prometheus.yml
+        target: /etc/prometheus/prometheus.yml
+        bind:
+          create_host_path: true
+  reddit-comment:
+    container_name: reddit-comment
+    image: ghcr.io/codeby-devops/comment:monitoring
+    networks:
+      gap_net: null
+  reddit-post:
+    container_name: reddit-post
+    image: ghcr.io/codeby-devops/post:monitoring
+    networks:
+      gap_net: null
+  reddit-ui:
+    container_name: reddit-ui
+    image: ghcr.io/codeby-devops/ui:monitoring
+    networks:
+      gap_net: null
+    ports:
+      - mode: ingress
+        target: 9292
+        published: "9292"
+        protocol: tcp
+networks:
+  gap_net:
+    name: lesson29_gap_net
+    driver: bridge
+┌───(daniil@centos10-devops)-[~/DevOps/codeby-devops/lesson29][lesson29*] 
+└─$ sudo docker compose up -d                                                                                                                            
+[+] Running 7/7
+ ✘ grafana Error           context canceled                                                                                                             1.7s 
+ ✘ reddit-ui Error         Head "https://ghcr.io/v2/codeby-devops/ui/manifests/monitoring": unauthorized                                                1.7s 
+ ✘ reddit-comment Error    context canceled                                                                                                             1.7s 
+ ✘ reddit-post Error       context canceled                                                                                                             1.7s 
+ ✘ cadvisor Error          context canceled                                                                                                             1.7s 
+ ✘ prometheus Error        context canceled                                                                                                             1.7s 
+ ✘ blackbox-exporter Error context canceled                                                                                                             1.7s 
+Error response from daemon: Head "https://ghcr.io/v2/codeby-devops/ui/manifests/monitoring": unauthorized
+┌───(daniil@centos10-devops)-[~/DevOps/codeby-devops/lesson29][lesson29*] 
+└─$ sudo docker login ghcr.io -u azmodan991
+Password: 
+WARNING! Your password will be stored unencrypted in /root/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credential-stores
+
+Login Succeeded
+┌───(daniil@centos10-devops)-[~/DevOps/codeby-devops/lesson29][lesson29*] 
+└─$ sudo docker compose up -d              
+[+] Running 7/7
+ ✘ reddit-comment Error    context canceled                                                                                                             3.2s 
+ ✘ cadvisor Error          context canceled                                                                                                             3.2s 
+ ✘ reddit-ui Error         context canceled                                                                                                             3.2s 
+ ✘ prometheus Error        context canceled                                                                                                             3.2s 
+ ✘ blackbox-exporter Error context canceled                                                                                                             3.2s 
+ ✘ grafana Error           context canceled                                                                                                             3.2s 
+ ✘ reddit-post Error       denied                                                                                                                       3.2s 
+Error response from daemon: denied
+┌───(daniil@centos10-devops)-[~/DevOps/codeby-devops/lesson29][lesson29*] 
+└─$ sudo docker pull ghcr.io/codeby-devops/ui:monitoring
+Error response from daemon: denied
+┌───(daniil@centos10-devops)-[~/DevOps/codeby-devops/lesson29][lesson29*] 
+└─$ docker pull ghcr.io/codeby-devops/ui:monitoring 
+Error response from daemon: denied
